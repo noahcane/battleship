@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class Game {
+public class Game { //main class
 	
-	private static Board p1board = new Board();
+	private static Board p1board = new Board(); //different board types
 	private static Board aiboard = new Board(); 
 	private static Board p1attack = new Board();
 	private static aiBoard aiattack; 
@@ -24,7 +24,7 @@ public class Game {
 		return print;
 	}
 	
-	public boolean check(String s) {
+	public boolean check(String s) { //checks if your input wants the ship to rotate
 		if(s.equals("R") || s.equals("ROTATE")) {
 			return true;
 		}
