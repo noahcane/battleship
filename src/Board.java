@@ -1,80 +1,74 @@
 public class Board { //send to ted :D
 	
 	private int dimension = 10;
-	private int[][] board = new int[dimension][dimension]; //water is 0, missed is -1, hit is 1
+	private Cell[] board = new Cell[dimension * dimension]; //water is 0, missed is -1, hit is 1
 
-	public Board() {}//your target board
-	
-	public Board(int[][] carrier, int[][] battleship, int[][] destroyer, int[][] submarine, int[][] cruiser) {
-		for(int i = 0; i < 5; i++) {
-			this.board[carrier[i][0]][carrier[i][1]] = 2;
-		}
-		for(int i = 0; i < 4; i++) {
-			this.board[battleship[i][0]][battleship[i][1]] = 2;
-		}
-		for(int i = 0; i < 3; i++) {
-			this.board[destroyer[i][0]][destroyer[i][1]] = 2;
-			this.board[submarine[i][0]][submarine[i][1]] = 2;
-		}
-		for(int i = 0; i < 2; i++) {
-			this.board[cruiser[i][0]][cruiser[i][1]] = 2;
+	{
+		for(int i = 1; i <= dimension; i++) {
+			for(int j = 1; j <= dimension; j++) {
+				board[i].x(i);
+				board[i].y(j);
+				board[i].setData(0);
+			}
 		}
 	}
+	
+	public Board() {}//your target board
+	
+	public Board(Cell[] ships) { //always will be 17 cells
+		for(int i = 0; i < ships.length; i++) {
+			board[cellFinder(ships[i])].setData(2);
+		}
+	}
+	
+	/*
+	public void addCoordinates(Cell[] coordinates) { //changing the values at certain coordinates
+		for(int i = 0; i < coordinates.length; i++) {
+			board[coordinates[i].x() + (coordinates[i].y() * 10)].setData(2);
+
+		}
+	}
+	*/
 	
 	public int getDimension() {
 		return this.dimension;
 	}
 	
-	public void addCoordinates(int[][] coordinates) {
-		for(int i = 0; i < coordinates.length; i++) {
-			this.board[coordinates[i][0]][coordinates[i][1]] = 2;
-		}
-	}
-	
 	public boolean gameOver() {
 		boolean status = true;
-		for(int i = 0; i < this.board.length; i++) {
-			for(int j = 0; j < this.board[i].length; j++){		
-				if(this.board[i][j] == 2) {
-					status = false;
-				}
+		for(int i = 0; i < dimension * dimension; i++) {
+			if(board[i].getData() == 2) {
+				status = false;
 			}
 		}	
 		return status;
 	}
 	
-	public void changePoint(int[] coordinate, int value) {
-		this.board[coordinate[0]][coordinate[1]] = value;
+	public void changePoint(Cell coordinate, int value) {
+		board[cellFinder(coordinate)].setData(value);
 	}
-	
-	public boolean checkPoint(int[] point) {
-		if(board[point[0]][point[1]] == 2) {
-			return true;
-		}
-		return false;
-	}
-	
+
+	/*
 	public boolean checkPoint(int[] point, int checkNum) {
 		if(board[point[0]][point[1]] == checkNum) {
 			return true;
 		}
 		return false;
 	}
+	*/
 	
-	public int[][] getBoard(){
-		return this.board;
+	public void printBoard() { //utility
+		for(int i = 0; i < dimension; i++) {
+			if(i % 10 == 0) {
+				System.out.println(board[i].getData());
+			}else {
+				System.out.print(board[i].getData() + " ");
+			}
+		}
 	}
 	
-	public String printBoard() { //utility
-		String print = "";
-		for(int i = 0; i < this.board.length; i++) {
-			for(int j = 0; j < this.board[i].length; j++){		
-				print += board[i][j];
-				print += " ";
-			}
-			print += "\n";
-		}
-		return print;
+	public int cellFinder(Cell c) { //finds a cell depending on coordinates
+		return (c.y() * 10) + c.x();
 	}
 	
 }

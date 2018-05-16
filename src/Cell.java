@@ -34,5 +34,11 @@ public class Cell {
 		this.data = d;
 	}
 	
+	public boolean equals(Object c2) { //check if two cells have the same data value
+		if(this.data == ((Cell) c2).getData()) {
+			return true;
+		}
+		return false;
+	}
 	
 }

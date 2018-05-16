@@ -9,9 +9,12 @@ public class Game { //main class
 	
 	public String printTwoBoards(Board b1, Board b2) { //utility
 		String print = "";
-		for(int i = 0; i < p1board.getBoard().length; i++) {
-			for(int j = 0; j < p1board.getBoard()[i].length; j++){		
-				print += b1.getBoard()[i][j];
+		for(int i = 0; i < b1.getDimension(); i++) {
+			
+		}
+		for(int i = 0; i < p1board.getDimension(); i++) {
+			for(int j = 0; j < p1board.getDimension(); j++){		
+				print += b1.;
 				print += " ";
 			}
 			print += "\t";
